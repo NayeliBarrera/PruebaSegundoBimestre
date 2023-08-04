@@ -22,6 +22,30 @@ public class Registro {
     private JButton limpiarFormularioButton;
     private JPanel Re;
 
+    public Registro() {
+        botonBuscarPorCodigoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String codigo = obtenerCodigo();
+                JFrame frame = new JFrame("Buscar por codigo");
+                JButton button = new JButton("Estudiante encontrado por codigo");
+
+            }
+        });
+        botonBuscarPorNombreButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String Nombre = obtenerNombre();
+            }
+        });
+        botonBuscarPorSignoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String Signo = obtenerSigno();
+            }
+        });
+    }
+
     public static void main(String[] args) {
         String DB_URL="jdbc:mysql://localhost/ESTUDIANTES"; //conectar con el servidor
         String USER="root"; // ususario del cual nos vamos a conectar
@@ -36,56 +60,11 @@ public class Registro {
         frame.setVisible(true);
     }
 
-    public Registro() {
-        botonBuscarPorCodigoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int Codigo= textField1.getText();
-                String Codigo = new String(textField1.getText())
-
-                Component Registro;
-                String DB_URL;
-                try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-                     PreparedStatement stmt = conn.prepareStatement(QUERY)) {
-                    stmt.setString(1, Codigo);
-                    stmt.setString(2, Nombre)
-                    stmt.setString(3, Signo);
-
-                    ResultSet rs = stmt.executeQuery();
-
-                   
-                    if (rs.next()) {
-                        int Codigo = rs.getString("Codigo");
-                        String cedula = rs.getString("cedula");
-                        String Nombre = rs.getString("Nombre");
-                        String Signo = rs.getString("Signo");
-
-                        System.out.println("Datos del usuario:");
-                        System.out.println("Nombre: " + Nombre);
-                        System.out.println("cedula: " + cedula);
-                        System.out.println("Signo: " + Signo);
+}
 
 
-                        JOptionPane.showMessageDialog(Registro, "Estudiante encontrado por codigo");
-                    } else {
-                        JOptionPane.showMessageDialog(Registro, "Codigo incorrecto. Inténtalo de nuevo.",
-                                "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(Registro, "Error al intentar conectarse a la base de datos.",
-                            "Error de conexión", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
 
-        botonBuscarPorNombreButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
-    }
+
         
 
 
